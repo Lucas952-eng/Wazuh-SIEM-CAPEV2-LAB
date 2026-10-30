@@ -35,5 +35,7 @@ This is a blue-team detection lab: a Wazuh SIEM on Proxmox, connected over Tails
  - The VM contains a windows 10 host that is the detonation sandbox. All email attachments are sent to this VM and viewed with email analyzer python script.
  - IP address: <CAPE_TAILSCALE_IP>
  
- 
+# Part 1 - Wazuh Setup in the Proxmox Environment
+
+
 
