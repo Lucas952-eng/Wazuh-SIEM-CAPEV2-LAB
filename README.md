@@ -1,2 +1,8 @@
 # Wazuh-SIEM-CAPEV2-LAB
-This repository will list my configuration settings for setting up Wazuh and CAPEv2 in a sandbox enviornment. I will specifically configuring the Wazuh SIEM in this repository.
+This is a blue-team detection lab: a Wazuh SIEM on Proxmox, connected over Tailscale to a CAPEV2 malware sandbox that detonates email attachments and reports verdict back into wazuh
+
+# LAB Architecture
+
+Component  Location   Address   Role
+--------------------------------------
+
