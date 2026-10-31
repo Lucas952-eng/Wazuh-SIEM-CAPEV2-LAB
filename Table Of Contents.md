@@ -1,7 +1,7 @@
 # Table of Contents
 Per user convienence, I have created a table of contents that will show all parts, sections, and Lab Components.
 
-If curious about the lab components, please go to the 
+The lab components are listed here: [Components](Lab_Components.md)
 
 ## Part 1--Wazuh Setup in the Proxmox Environment
  - 1.1 Creating the internal lab network
