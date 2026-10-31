@@ -47,7 +47,7 @@ This is a blue-team detection lab: a Wazuh SIEM on Proxmox, connected over Tails
 |8006/tcp|Proxmox Web UI|Admin|
 |3000/tcp|Grafana|Admin|
 
-# Part 1 - Wazuh Setup in the Proxmox Environment
+
 
 
 
