@@ -34,7 +34,19 @@ This is a blue-team detection lab: a Wazuh SIEM on Proxmox, connected over Tails
  - Seperate Ubuntu VM on tailnet.
  - The VM contains a windows 10 host that is the detonation sandbox. All email attachments are sent to this VM and viewed with email analyzer python script.
  - IP address: <CAPE_TAILSCALE_IP>
- 
+
+## Ports used
+
+|Port|Service|Connections|
+|---|---|---|
+|1514/tcp|Wazuh agent events|All agents -> manager|
+|1515/tcp|Wazuh agent enrollment|All agents -> manager|
+|443/tcp|Wazuh Dashboard|Admin|
+|9200/tcp|Wazuh Indexer (OpenSearch)|Wazuh -> Grafana|
+|8000/tcp|CAPEv2 REST API|Wazuh VM -> CAPE Host|
+|8006/tcp|Proxmox Web UI|Admin|
+|3000/tcp|Grafana|Admin|
+
 # Part 1 - Wazuh Setup in the Proxmox Environment
 
 
