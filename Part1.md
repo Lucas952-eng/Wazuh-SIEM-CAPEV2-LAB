@@ -25,4 +25,17 @@
 |Disk|40-80 GB (SSD-Reccomended)|
 |Network|`vmbr0` bridge, VirtIO|
 |Static IP| `10.10.10.9/24`|
+
+## 1.3 Install Wazuh 
+
+1. Wazuh installation assistant: `curl -sO https://packages.wazuh.com/4.14/wazuh-install.sh`
+2. After this command, run `bash wazuh-install.sh --wazuh-server wazuh-1` to actually run the assistant with the `--wazuh-server` option followed by node name. `Wazuh-1` is a example.
+ - Everything is installed including **manager**,**indexer**, and **dashboard** on one VM.
+ - MAKE SURE TO SAVE `admin` PASSWORD.
+ - Default Wazuh Dashboard IP: `https://10.10.10.9:443`.
+
+## 1.4 Open the indexer to the lab network (needed for Grafana)
+
+
+
      
