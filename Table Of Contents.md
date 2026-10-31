@@ -1,5 +1,5 @@
 # Table of Contents
-Per user convience, I have created a table of contents that will show all parts, sections, and Lab Components.
+Per user convienence, I have created a table of contents that will show all parts, sections, and Lab Components.
 
 If curious about the lab components, please go to the 
 
@@ -20,6 +20,12 @@ If curious about the lab components, please go to the
    - Omarchy/Arch laptop
    - Verification 
 
-
-   ## Part 3--Connecting CAPEv2 to Wazuh
-   
+## Part 3--Connecting CAPEv2 to Wazuh
+ - 3.1 Prerequisites on the CAPE host
+ - 3.2 Sandbox isolation--before any real malware
+ - 3.3 Enable only the API endpoints needed
+ - 3.4 Install the Wazuh agent on the CAPE host
+ - 3.5 Ship the analyzer log to Wazuh
+ - 3.6 Manager rules
+ - 3.7 End-to-end test
+ - 3.8 Known issues/to-do 
