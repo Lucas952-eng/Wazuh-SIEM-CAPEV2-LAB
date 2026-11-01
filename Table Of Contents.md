@@ -5,7 +5,7 @@ The lab components are listed here: [Components](Lab_Components.md)
 
 ## Part 1--Wazuh Setup in the Proxmox Environment
  - [1.1 Creating the internal lab network](Part1.md#11-create-the-internal-network)
- - [1.2 Create the Wazuh VM](Part1.md#12-Creation-/-Specs-of-Wazuh-VM)
+ - [1.2 Create the Wazuh VM](Part1.md#12-creation-/-specs-of-wazuh-vm)
  - [1.3 Install Wazuh (all-in-one)](Part1.md#13-install-wazuh)
  - [1.4 Open the indexer to the lab network]
  - [1.5 Implementing ufw firewall on Wazuh VM]
