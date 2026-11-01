@@ -77,9 +77,32 @@ From the Wazuh VM, confirm the API is reachable over Tailscale:
 If it outputs: `Cuckoo Status API is disabled` is a **network success**--CAPE answered.
 
 ## 3.4 Install the Wazuh agent on CAPE host
-1. Wazuh Dashboard -> Agents -> Deploy new agent
+1. Wazuh Dashboard -> **Agents -> Deploy new agent**
+   
 |Agent Options|Config|
 |---|---|
 |OS| Linux, DEB amd64|
 |Server Address|<WAZUH_TAILSCALE_IP>|
 |Name|CAPEv2_Agent|
+  - Copy the generated install command into the CAPEv2 Host terminal and run it.
+2. After running the install command:
+```
+   sudo systemctl daemon-reload
+   sudo systemctl enable --now wazuh-agent
+```
+1. Test agent paths:
+   ```
+   nc -zv <WAZUH_TAILSCALE_IP> 1515     # succeeded
+   nc -zv <WAZUH_TAILSCALE_IP> 1514     # succeeded
+   nc -zv <WAZUH_TAILSCALE_IP> 22       # must TIME OUT
+   nc -zv <WAZUH_TAILSCALE_IP> 443      # must TIME OUT
+   sudo tail -f /var/ossec/logs/ossec.log   # "Valid key received" → "Connected to the server"
+   ```
+
+## 3.5 Ship the analyzer log to Wazuh
+On the CAPE host, get the real path (run **without** sudo):
+
+`echo ~/analyzer/logs/analyzer.json`
+
+
+
