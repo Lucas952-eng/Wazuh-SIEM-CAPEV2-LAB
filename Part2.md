@@ -29,4 +29,45 @@ NOTE: Command `tailscale ip -4` shows the given tailscale ip on the machine (Waz
 
 ## 2.3 Tailscale access policy (default-deny grants)
 
+Tailscale as its own built-in **Access Control Lists** (ACLs) as well as **Grants**, that can help direct/block traffic on the tailnet.
+
+In this section, I will go through my configurations in the access policy section located from **Admin console -> Access controls -> JSON Editor**. Make sure to click **Save** when done.
+
+Below are my configurations:
+
+```
+{
+  "tagOwners": {
+    "tag:scanner": ["autogroup:admin"],
+    "tag:cape":    ["autogroup:admin"],
+  },
+
+  "grants": [
+    // Admin can reach everything
+    {"src": ["autogroup:admin"], "dst": ["*"], "ip": ["*"]},
+
+    // Invited members (the CAPE owner) only reach their own devices
+    {"src": ["autogroup:member"], "dst": ["autogroup:self"], "ip": ["*"]},
+
+    // Wazuh VM -> CAPE API only
+    {"src": ["tag:scanner"], "dst": ["tag:cape"], "ip": ["tcp:8000"]},
+
+    // CAPE host's Wazuh agent -> manager (enroll + events) only
+    {"src": ["tag:cape"], "dst": ["tag:scanner"], "ip": ["tcp:1514", "tcp:1515"]},
+  ],
+
+  "ssh": [
+    {
+      "action": "check",
+      "src":    ["autogroup:member"],
+      "dst":    ["autogroup:self"],
+      "users":  ["autogroup:nonroot", "root"],
+    },
+  ],
+}
+```
+|Config Grants|Reasoning for Implementation|
+|---|---|
+|autogroup:admin|Grant gives admin access to all machines|
+|autogroup:member|CAPE member (added CAPEv2 remote user to add tailscale to CAPEv2 VM)can't reach Proxmox, Windows 11, etc.|
 
