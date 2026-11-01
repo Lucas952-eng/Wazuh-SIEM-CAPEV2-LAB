@@ -77,4 +77,15 @@ Below are my configurations:
 
 NOTE: Do **NOT** grant `10.10.10.0/24` to `autogroup:member` or `*` because CAPE host runs malware.
 
-##
+## 2.4 Tag the machines
+**Machines -> ... -> Edit ACL tags (tags only appear after `tagOwners` is saved)**
+  - Wazuh VM -> `tag:scanner`
+  - CAPE host -> `tag:cape`
+
+Once everything has been tagged, a ping from the Wazuh VM to CAPE **stops working** -- thats expected(only tcp:8000 is allowed). Add `"icmp:*"` to that grant if you want ping back.
+
+## 2.5 Add agents
+Here is the general rule with adding agents: **Agents on the lab bridge (`vmbr0`) point at `10.10.10.9`; agents off-site (not on server/local LAN) point at <WAZUH_TAILSCALE_IP>
+
+## Windows 11 Specs/Configs
+|
