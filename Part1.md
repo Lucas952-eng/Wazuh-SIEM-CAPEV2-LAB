@@ -36,6 +36,27 @@
 
 ## 1.4 Open the indexer to the lab network (needed for Grafana)
 
+The all-in-one install binds the wazuh indexer to `127.0.0.1`(loopback), so nothing outside the VM can reach port 9200.
 
+```
+sudo cp /etc/wazuh-indexer/opensearch.yml /etc/wazuh-indexer/opensearch.yml.bak
+sudo sed -i 's/^network.host:.*/network.host: "0.0.0.0"/' /etc/wazuh-indexer/opensearch.yml
+grep network.host /etc/wazuh-indexer/opensearch.yml     # should show "0.0.0.0"
+sudo systemctl restart wazuh-indexer                    # 30–60 seconds
 
-     
+ss -tlnp | grep 9200                 # 0.0.0.0:9200
+curl -k https://localhost:9200       # "Unauthorized" = working
+```
+- Changing network host from loopback to `0.0.0.0` means that Opensearch listens on **every** ipv4 address on this VM.
+- If the indexer doesn't start correctly: `journalctl -u wazuh-indexer -n 50 --no-pager`.
+
+**NOTE**: Setting the indexer to `0.0.0.0` is a security risk. In the next section, we will configure the ufw firewall to only allow **Grafana** to be accepted and view indexer logs.
+
+## 1.5 Firewall the Wazuh VM(ufw)
+
+  - This will be run from the **Proxmox console**. This is in case a bad ufw rules locks you out.
+ 1. Indexer Rules: Grafana Only
+    ```
+    ufw allow from 10.10.10.11 to any port 9200 proto tcp
+    ufw deny 9200/tcp
+    ```
