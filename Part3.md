@@ -31,3 +31,27 @@ These rules are to be made on the CAPEv2 Host, **NOT** the nested detonation VM.
 
 - `/opt/CAPEv2/conf/routing.conf` -> `route = none`, then `sudo systemctl restart cape cape-rooter`.
   - Note: `route = none` applies **no** routing rules--the guest keeps internet access. Isolation from private networks comes from the iptable rules above.
+- Never run `--advertise-routes` for the sandbox subnet or `--advertise-exit-node on the CAPE host.
+- **Test:** from the CAPEv2 host, and ping any tailnet IP (`100.x`) and must fail.
+
+## 3.3 Enable API endpoints (CAPE Host)
+`/opt/CAPEv2/conf/api.conf` (everything else stays disabled -- least privilege):
+
+```
+[filecreate]
+enabled = yes
+
+[taskstatus]
+enabled = yes
+
+[taskreport]
+enabled = yes
+```
+
+```
+sudo systemctl restart cape-web
+sudo ss -tlnp | grep 8000      # must NOT be 127.0.0.1-only
+```
+From the Wazuh VM, confirm the API is reachable over Tailscale:
+
+`curl http://<CAPE_TAILSCALE_IP>:8000/apiv2/cuckoo/status/`
