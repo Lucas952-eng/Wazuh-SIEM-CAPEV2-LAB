@@ -8,7 +8,7 @@ The lab components are listed here: [Components](Lab_Components.md)
  - [1.2 Create the Wazuh VM](Part1.md#12-creation--specs-of-wazuh-vm)
  - [1.3 Install Wazuh (all-in-one)](Part1.md#13-install-wazuh)
  - [1.4 Open the indexer to the lab network](Part1.md#14-open-the-indexer-to-the-lab-network-needed-for-grafana)
- - [1.5 Implementing ufw firewall on Wazuh VM](Part1.md#15-firwall-the-wazuh-vm-ufw)
+ - [1.5 Implementing ufw firewall on Wazuh VM](Part1.md#15-firewall-the-wazuh-vm-ufw)
 
 ## Part 2--Linking Wazuh to Tailscale and Adding Agents
  - 2.1 Tailscale subnet router (LXC on Proxmox)
