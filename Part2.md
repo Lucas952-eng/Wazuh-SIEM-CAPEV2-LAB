@@ -95,3 +95,15 @@ Here is the general rule with adding agents: **Agents on the lab bridge (`vmbr0`
 |Memory|8GB|
 |Storage|40-80GB|
 |Network|Virtio with `vmbr0`|
+|IP Addresses| Static IP: `10.10.10.9`, Default Gateway: `10.10.10.1`|
+
+1. To deploy a Wazuh agent go to **Wazuh Dashboard -> Agents -> Deploy new agent -> Windows,** manager `10.10.10.9`, name `WindowsHost4`, or whatever you prefer.
+2. Then, Wazuh will give you the provided code (example):
+   ```
+      msiexec.exe /i wazuh-agent-4.14.7-1.msi /q `
+     WAZUH_MANAGER="10.10.10.9" `
+     WAZUH_AGENT_NAME="WindowsHost4" `
+     WAZUH_REGISTRATION_SERVER="10.10.10.9"
+     NET START WazuhSvc
+   ```
+3. To verify that the agent is currently on, go to the agents **Agents** in Wazuh and look for your newly added agent.
