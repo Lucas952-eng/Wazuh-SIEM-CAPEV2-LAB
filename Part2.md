@@ -20,3 +20,13 @@
 ## 2.2 Adding Wazuh VM to tailnet
 Due to the CAPEv2 being remote means that it can directly communicate with the `10.10.10.0/24` addresses, so the easiest way to counter this is using the tailnet directly:
 
+```
+  curl -fsSL https://tailscale.com/install.sh | sh
+  sudo tailscale up
+  tailscale ip -4  
+```
+NOTE: Command `tailscale ip -4` shows the given tailscale ip on the machine (Wazuh VM)
+
+## 2.3 Tailscale access policy (default-deny grants)
+
+
