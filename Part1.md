@@ -26,7 +26,7 @@
 |Network|`vmbr0` bridge, VirtIO|
 |Static IP| `10.10.10.9/24`|
 
-## 1.3 Install Wazuh 
+## 1.3 Install Wazuh (all-in-one)
 
 1. Wazuh installation assistant: `curl -sO https://packages.wazuh.com/4.14/wazuh-install.sh`
 2. After this command, run `bash wazuh-install.sh --wazuh-server wazuh-1` to actually run the assistant with the `--wazuh-server` option followed by node name. `Wazuh-1` is a example.
@@ -52,7 +52,7 @@ curl -k https://localhost:9200       # "Unauthorized" = working
 
 **NOTE**: Setting the indexer to `0.0.0.0` is a security risk. In the next section, we will configure the ufw firewall to only allow **Grafana** to be accepted and view indexer logs.
 
-## 1.5 Firewall the Wazuh VM(ufw)
+## 1.5 Implementing ufw firewall on Wazuh VM
 
   - This will be run from the **Proxmox console**. This is in case a bad ufw rules locks you out.
  1. Indexer Rules: Grafana Only
