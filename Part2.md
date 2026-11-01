@@ -88,4 +88,10 @@ Once everything has been tagged, a ping from the Wazuh VM to CAPE **stops workin
 Here is the general rule with adding agents: **Agents on the lab bridge (`vmbr0`) point at `10.10.10.9`; agents off-site (not on server/local LAN) point at <WAZUH_TAILSCALE_IP>
 
 ## Windows 11 Specs/Configs
-|
+|Hardware/Software|Specs|
+|---|---|
+|OS|Windows 25H2 ISO|
+|CPU|4 Cores (Proxmox Host)|
+|Memory|8GB|
+|Storage|40-80GB|
+|Network|Virtio with `vmbr0`|
