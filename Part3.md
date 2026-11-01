@@ -43,6 +43,24 @@ enabled = yes
 
 [taskstatus]
 enabled = yes
+  → Wazuh agent (CAPEv2_Agent) → Tailscale :1514 → Wazuh manager
+  → rules 100400–100405 → alerts (correlated with Windows YARA/FIM by SHA256)
+
+  → Wazuh agent (CAPEv2_Agent) → Tailscale :1514 → Wazuh manager
+  → rules 100400–100405 → alerts (correlated with Windows YARA/FIM by SHA256)
+
+  → Wazuh agent (CAPEv2_Agent) → Tailscale :1514 → Wazuh manager
+  → rules 100400–100405 → alerts (correlated with Windows YARA/FIM by SHA256)
+
+  → Wazuh agent (CAPEv2_Agent) → Tailscale :1514 → Wazuh manager
+  → rules 100400–100405 → alerts (correlated with Windows YARA/FIM by SHA256)
+
+  → Wazuh agent (CAPEv2_Agent) → Tailscale :1514 → Wazuh manager
+  → rules 100400–100405 → alerts (correlated with Windows YARA/FIM by SHA256)
+
+  → Wazuh agent (CAPEv2_Agent) → Tailscale :1514 → Wazuh manager
+  → rules 100400–100405 → alerts (correlated with Windows YARA/FIM by SHA256)
+
 
 [taskreport]
 enabled = yes
@@ -55,3 +73,13 @@ sudo ss -tlnp | grep 8000      # must NOT be 127.0.0.1-only
 From the Wazuh VM, confirm the API is reachable over Tailscale:
 
 `curl http://<CAPE_TAILSCALE_IP>:8000/apiv2/cuckoo/status/`
+
+If it outputs: `Cuckoo Status API is disabled` is a **network success**--CAPE answered.
+
+## 3.4 Install the Wazuh agent on CAPE host
+1. Wazuh Dashboard -> Agents -> Deploy new agent
+|Agent Options|Config|
+|---|---|
+|OS| Linux, DEB amd64|
+|Server Address|<WAZUH_TAILSCALE_IP>|
+|Name|CAPEv2_Agent|
