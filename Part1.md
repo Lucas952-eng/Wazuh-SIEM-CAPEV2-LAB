@@ -60,3 +60,24 @@ curl -k https://localhost:9200       # "Unauthorized" = working
     ufw allow from 10.10.10.11 to any port 9200 proto tcp
     ufw deny 9200/tcp
     ```
+    - First rule allows `10.10.10.11`(Grafana) to be able to reach **Indexer**(9200)
+    - Second rule denys any other traffic from reaching it.
+      
+ 2. Default rules: `ufw default deny incoming`, and after that; `ufw default allow outgoing`.
+     - Basically means that if none of these rules satisfy a specific incoming/outgoing piece of traffic, then these baseline rules will allow/deny it.
+    
+      
+ 3. Service Wazuh needs
+    ```
+    ufw allow from 10.10.10.0/24 to any port 22 proto tcp # SSH (admin arrives via subnet router 10.10.10.2)
+    ufw allow from 10.10.10.0/24 to any port 443 proto tcp         # Dashboard
+    ufw allow from 10.10.10.0/24 to any port 1514,1515 proto tcp   # Lab agents
+    ufw allow in on tailscale0 to any port 1514,1515 proto tcp     # CAPE agent over Tailscale
+
+    ufw enable
+    ufw status numbered
+    ```
+    - Grafana -> Indexer test command: `curl -k https://10.10.10.9:9200` returns **Unauthorized**
+   
+      
+
