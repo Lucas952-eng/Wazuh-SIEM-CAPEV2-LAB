@@ -1,3 +1,5 @@
+
+
 # Part 2--Linking Wazuh to Tailscale and Adding Agents
 
 ## 2.1 Tailscale LXC on Proxmox
@@ -68,6 +70,11 @@ Below are my configurations:
 ```
 |Config Grants|Reasoning for Implementation|
 |---|---|
-|autogroup:admin|Grant gives admin access to all machines|
-|autogroup:member|CAPE member (added CAPEv2 remote user to add tailscale to CAPEv2 VM)can't reach Proxmox, Windows 11, etc.|
+|`autogroup:admin`|Grant gives admin access to all machines.|
+|`autogroup:member`|CAPE member (added CAPEv2 remote user to add tailscale to CAPEv2 VM)can't reach Proxmox, Windows 11, etc.|
+|`tag:scanner` -> `tag:scanner` tcp:8000| Wazuh VM may call the CAPE API and nothing else.|
+|`tag:cape` -> `tag:scanner` tcp:1514,1515| The agent always **starts** the connection to the manager, so it needs its own one-way grant.
 
+NOTE: Do **NOT** grant `10.10.10.0/24` to `autogroup:member` or `*` because CAPE host runs malware.
+
+##
