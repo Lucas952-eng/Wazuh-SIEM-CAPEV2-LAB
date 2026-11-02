@@ -13,11 +13,10 @@ The lab components are listed here: [Components](Lab_Components.md)
 ## Part 2--Linking Wazuh to Tailscale and Adding Agents
  - [2.1 Tailscale subnet router (LXC on Proxmox)](Part2.md#21)
  - [2.2 Put the Wazuh VM on the tailnet](Part2.md#22)
- - 2.3 Tailscale access policy (default-deny grants)
- - 2.4 Tag the machines
- - 2.5 Add agents
+ - [2.3 Tailscale access policy (default-deny grants)](Part2.md#23)
+ - [2.4 Tag the machines](Part2.md#24)
+ - [2.5 Add agents](Part2.md#25)
    - Windows 11 (WindowsHost4)
-   - Omarchy/Arch laptop
    - Verification 
 
 ## Part 3--Connecting CAPEv2 to Wazuh
