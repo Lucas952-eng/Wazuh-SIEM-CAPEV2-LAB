@@ -1,5 +1,8 @@
 # Wazuh-SIEM-CAPEV2-LAB
-This is a blue-team detection lab: a Wazuh SIEM on Proxmox, connected over Tailscale to a CAPEV2 malware sandbox that detonates email attachments and reports verdict back into Wazuh
+This is a blue-team detection lab: a Wazuh SIEM on Proxmox, connected over Tailscale to a CAPEV2 malware sandbox that detonates email attachments and reports verdict back into Wazuh. From that point, Grafana visualizes the logs using its customizable dashboards seen below:
+
+
+<img width="1838" height="720" alt="screenshot-2026-10-19_16-15-20" src="https://github.com/user-attachments/assets/ee517be1-86c1-49e8-8f1d-426898ab7f23" />
 
 # Lab Components
 
