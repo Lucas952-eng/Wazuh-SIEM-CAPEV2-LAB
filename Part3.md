@@ -178,6 +178,10 @@ Append to `/var/ossec/etc/rules/local_rules.xml`:
 |100404|12|Whole email quarantined|
 |100405|12|Analyzer can't log into Gmail|
 
+Example Outputs:
+<img width="1336" height="341" alt="screenshot-2026-11-01_20-20-39" src="https://github.com/user-attachments/assets/6fc6035b-9eeb-483a-b1a4-5264aea746a2" />
+
+
 Two `<field>` lines in one rule must **both** match. Custom IDs must stay in 100000-120000.
 
 Now, lets make sure everything works:
