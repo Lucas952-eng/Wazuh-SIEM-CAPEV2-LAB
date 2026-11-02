@@ -14,9 +14,9 @@ CAPEv2 runs on the **Ubuntu host**. The actual "Detonation" goes on in the neste
 ## 3.1 Prerequisites on the CAPE host
 Primarily in this repo, I will mainly only focus on the Wazuh configurations, if you want more information on how please go to this repo: **(link will be added shortly)**
 
-  - CAPE host must join the tailnet if not already and tagged as `tag`(Part 2.3-2.4)
+  - CAPE host must join the tailnet if not already and tagged as `tag:cape`(Part 2.3-2.4)
 
-## Sandbox Isolation--before any real malware
+## 3.2 Sandbox Isolation--before any real malware
 
 These rules will stop the detonation guest from reaching the tailnet or any private network:
 ```
@@ -114,7 +114,7 @@ Add `/var/ossec/etc/ossec.conf`, above the final `<ossec_config>`:
 ```
 
 After adding above to the config file, do `sudo systemctl restart wazuh-agent` to confirm.
-  - `loge_format json` auto-decodes every key into `data.` fields--no custom decoder needed.
+  - `log_format json` auto-decodes every key into `data.` fields--no custom decoder needed.
   - Each event must be **one JSON object per line**.
   - The agent only ships lines written **after** it starts watching--add this before testing.
 
@@ -141,10 +141,64 @@ Append to `/var/ossec/etc/rules/local_rules.xml`:
     <description>Email attachment $(filename) is MALICIOUS (CAPE malscore $(cape_malscore), VT $(vt_malicious))</description>
   </rule>
 
-  <rule id="100402" level="8">
+  <rule id="100402" level="12">
     <if_sid>100400</if_sid>
     <field name="event_type">^attachment_scan$</field>
-    <field name="verdict">^suspicious$</field>
+    <field name="verdict">^sus# Table of Contents
+
+Per user convienence, I have created a table of contents that will show all parts, sections, and Lab Components.
+
+
+The lab components are listed here: [Components](Lab_Components.md)
+
+
+## Part 1--Wazuh Setup in the Proxmox Environment
+
+ - [1.1 Creating the internal lab network](Part1.md#11-create-the-internal-network)
+
+ - [1.2 Create the Wazuh VM](Part1.md#12-creation--specs-of-wazuh-vm)
+
+ - [1.3 Install Wazuh](Part1.md#13-install-wazuh--all--in--one)
+
+ - [1.4 Open the indexer to the lab network](Part1.md#14-open-the-indexer-to-the-lab-network-needed-for-grafana)
+
+ - [1.5 Implementing ufw firewall on Wazuh VM](Part1.md#15-firewall-the-wazuh-vm-ufw)
+
+
+## Part 2--Linking Wazuh to Tailscale and Adding Agents
+
+ - [2.1 Tailscale subnet router (LXC on Proxmox)](Part2.md#21)
+
+ - [2.2 Put the Wazuh VM on the tailnet](Part2.md#22)
+
+ - [2.3 Tailscale access policy (default-deny grants)](Part2.md#23)
+
+ - [2.4 Tag the machines](Part2.md#24)
+
+ - [2.5 Add agents](Part2.md#25)
+
+   - Windows 11 (WindowsHost4)
+
+   - Verification 
+
+
+## Part 3--Connecting CAPEv2 to Wazuh
+
+ - 3.1 Prerequisites on the CAPE host
+
+ - 3.2 Sandbox isolation--before any real malware
+
+ - 3.3 Enable only the API endpoints needed
+
+ - 3.4 Install the Wazuh agent on the CAPE host
+
+ - 3.5 Ship the analyzer log to Wazuh
+
+ - 3.6 Manager rules
+
+ - 3.7 End-to-end test
+
+ - 3.8 Known issues/to-do picious$</field>
     <description>Email attachment $(filename) is suspicious (CAPE malscore $(cape_malscore))</description>
   </rule>
 
@@ -155,14 +209,14 @@ Append to `/var/ossec/etc/rules/local_rules.xml`:
     <description>Email attachment $(filename) scanned clean</description>
   </rule>
 
-  <rule id="100404" level="10">
+  <rule id="100404" level="12">
     <if_sid>100400</if_sid>
     <field name="event_type">^email_triage$</field>
     <field name="verdict">^malicious$|^suspicious$</field>
     <description>Email "$(email_subject)" from $(email_from) quarantined: $(verdict)</description>
   </rule>
 
-  <rule id="100405" level="10">
+  <rule id="100405" level="12">
     <if_sid>100400</if_sid>
     <field name="event_type">^auth_failed$</field>
     <description>Email analyzer cannot log in to Gmail: scanning has stopped</description>
