@@ -20,7 +20,7 @@
  5. Advertising the LAN and linux bridge gives other machines in the tailnet that aren't located locally on the server access via tailscale lxc.
 
 ## 2.2 Adding Wazuh VM to tailnet
-Due to the CAPEv2 being remote means that it can directly communicate with the `10.10.10.0/24` addresses, so the easiest way to counter this is using the tailnet directly:
+Due to the CAPEv2 being remote means that it can't directly communicate with the `10.10.10.0/24` addresses, so the easiest way to counter this is using the tailnet directly:
 
 ```
   curl -fsSL https://tailscale.com/install.sh | sh
@@ -72,7 +72,7 @@ Below are my configurations:
 |---|---|
 |`autogroup:admin`|Grant gives admin access to all machines.|
 |`autogroup:member`|CAPE member (added CAPEv2 remote user to add tailscale to CAPEv2 VM)can't reach Proxmox, Windows 11, etc.|
-|`tag:scanner` -> `tag:scanner` tcp:8000| Wazuh VM may call the CAPE API and nothing else.|
+|`tag:scanner` -> `tag:cape` tcp:8000| Wazuh VM may call the CAPE API and nothing else.|
 |`tag:cape` -> `tag:scanner` tcp:1514,1515| The agent always **starts** the connection to the manager, so it needs its own one-way grant.
 
 NOTE: Do **NOT** grant `10.10.10.0/24` to `autogroup:member` or `*` because CAPE host runs malware.
@@ -95,7 +95,7 @@ Here is the general rule with adding agents: **Agents on the lab bridge (`vmbr0`
 |Memory|8GB|
 |Storage|40-80GB|
 |Network|Virtio with `vmbr0`|
-|IP Addresses| Static IP: `10.10.10.9`, Default Gateway: `10.10.10.1`|
+|IP Addresses| Static IP: `10.10.10.10`, Default Gateway: `10.10.10.1`|
 
 1. To deploy a Wazuh agent go to **Wazuh Dashboard -> Agents -> Deploy new agent -> Windows,** manager `10.10.10.9`, name `WindowsHost4`, or whatever you prefer.
 2. Then, Wazuh will give you the provided code (example):
