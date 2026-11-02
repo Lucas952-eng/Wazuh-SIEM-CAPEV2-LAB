@@ -104,5 +104,69 @@ On the CAPE host, get the real path (run **without** sudo):
 
 `echo ~/analyzer/logs/analyzer.json`
 
+Add `/var/ossec/etc/ossec.conf`, above the final `<ossec_config>`:
 
+```
+<localfile>
+  <log_format>json</log_format>
+  <location>/home/<CAPE_USER>/analyzer/logs/analyzer.json</location>
+</localfile>
+```
+
+After adding above to the config file, do `sudo systemctl restart wazuh-agent` to confirm.
+  - `loge_format json` auto-decodes every key into `data.` fields--no custom decoder needed.
+  - Each event must be **one JSON object per line**.
+  - The agent only ships lines written **after** it starts watching--add this before testing.
+
+## 3.6 Manager Rules
+
+Command to make sure ID range is free: `sudo grep -E 'id="1004[0-9][0-9]"' /var/ossec/etc/rules/local_rules.xml`
+
+Append to `/var/ossec/etc/rules/local_rules.xml`:
+```
+<group name="email_analyzer,">
+  <!-- Parent. Hangs off Suricata's JSON parent 86600, which otherwise captures
+       any JSON with an event_type field. The event_type list keeps real
+       Suricata events out. -->
+  <rule id="100400" level="0">
+    <if_sid>86600</if_sid>
+    <field name="event_type">^attachment_scan$|^email_triage$|^auth_failed$|^quarantine$</field>
+    <description>Email analyzer event</description>
+  </rule>
+
+  <rule id="100401" level="12">
+    <if_sid>100400</if_sid>
+    <field name="event_type">^attachment_scan$</field>
+    <field name="verdict">^malicious$</field>
+    <description>Email attachment $(filename) is MALICIOUS (CAPE malscore $(cape_malscore), VT $(vt_malicious))</description>
+  </rule>
+
+  <rule id="100402" level="8">
+    <if_sid>100400</if_sid>
+    <field name="event_type">^attachment_scan$</field>
+    <field name="verdict">^suspicious$</field>
+    <description>Email attachment $(filename) is suspicious (CAPE malscore $(cape_malscore))</description>
+  </rule>
+
+  <rule id="100403" level="3">
+    <if_sid>100400</if_sid>
+    <field name="event_type">^attachment_scan$</field>
+    <field name="verdict">^clean$</field>
+    <description>Email attachment $(filename) scanned clean</description>
+  </rule>
+
+  <rule id="100404" level="10">
+    <if_sid>100400</if_sid>
+    <field name="event_type">^email_triage$</field>
+    <field name="verdict">^malicious$|^suspicious$</field>
+    <description>Email "$(email_subject)" from $(email_from) quarantined: $(verdict)</description>
+  </rule>
+
+  <rule id="100405" level="10">
+    <if_sid>100400</if_sid>
+    <field name="event_type">^auth_failed$</field>
+    <description>Email analyzer cannot log in to Gmail: scanning has stopped</description>
+  </rule>
+</group>
+```
 
