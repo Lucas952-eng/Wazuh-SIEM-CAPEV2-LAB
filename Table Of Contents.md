@@ -11,8 +11,8 @@ The lab components are listed here: [Components](Lab_Components.md)
  - [1.5 Implementing ufw firewall on Wazuh VM](Part1.md#15-firewall-the-wazuh-vm-ufw)
 
 ## Part 2--Linking Wazuh to Tailscale and Adding Agents
- - [2.1 Tailscale subnet router (LXC on Proxmox)](Part2#21)
- - 2.2 Put the Wazuh VM on the tailnet
+ - [2.1 Tailscale subnet router (LXC on Proxmox)](Part2.md#21)
+ - [2.2 Put the Wazuh VM on the tailnet](Part2.md#22)
  - 2.3 Tailscale access policy (default-deny grants)
  - 2.4 Tag the machines
  - 2.5 Add agents
