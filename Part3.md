@@ -178,3 +178,13 @@ Append to `/var/ossec/etc/rules/local_rules.xml`:
 |100404|12|Whole email quarantined|
 |100405|12|Analyzer can't log into Gmail|
 
+Two `<field>` lines in one rule must **both** match. Custom IDs must stay in 100000-120000.
+
+Now, lets make sure everything works:
+```
+sudo /var/ossec/bin/wazuh-logtest           # paste a line from analyzer.json; expect 86600 → 100400 → child
+cd /var/ossec && sudo bin/wazuh-analysisd -t && echo OK
+sudo systemctl restart wazuh-manager
+```
+
+
