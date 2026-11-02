@@ -169,4 +169,12 @@ Append to `/var/ossec/etc/rules/local_rules.xml`:
   </rule>
 </group>
 ```
+|Rule|Level|Meaning|
+|---|---|---|
+|100400|0|Parent -- "this line is from the analyzer"|
+|100401|12|Malicious attachment|
+|100402|12|Supicious attachment|
+|100403|3|Clean scan -- searchable proof the scan has happened|
+|100404|12|Whole email quarantined|
+|100405|12|Analyzer can't log into Gmail|
 
