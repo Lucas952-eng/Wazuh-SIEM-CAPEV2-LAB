@@ -7,7 +7,7 @@ Gmail inbox → new_analyzer.py (CAPE host) → CAPEv2 detonation
   → Wazuh agent (CAPEv2_Agent) → Tailscale :1514 → Wazuh manager
   → rules 100400–100405 → alerts (correlated with Windows YARA/FIM by SHA256)
 ```
-NOTE: In section **3.6 Manager rules** I go over the configured rules 100400-100405
+NOTE: In section **3.6 Manager Rules** I go over the configured rules 100400-100405
 
 CAPEv2 runs on the **Ubuntu host**. The actual "Detonation" goes on in the nested windows host within the Ubuntu machine.
 
